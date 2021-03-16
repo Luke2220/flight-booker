@@ -1,0 +1,15 @@
+
+<%=form_with url: flights_path ,method: :get do |f|%>
+<h1>Book a flight:</h1>
+<p> Departure airport:</p>
+<%= f.select(:flight_id, @airport_options)%>
+<p> Arrival airport:</p>
+<%= f.select(:flight_id, @airport_options)%>
+<p> Flight Dates:</p>
+<%= f.select(:start_time, @flight_options)%>
+<%= f.submit 'Search'%>
+<%end%>
+
+<%@matching_flights.each do |match|%>
+<p><%=flight.start_time%></p>
+<%end%>
