@@ -2,14 +2,20 @@
 <%=form_with url: flights_path ,method: :get do |f|%>
 <h1>Book a flight:</h1>
 <p> Departure airport:</p>
-<%= f.select(:flight_id, @airport_options)%>
+<%= f.select(:out_airport_id, @airport_options)%>
 <p> Arrival airport:</p>
-<%= f.select(:flight_id, @airport_options)%>
+<%= f.select(:in_airport_id, @airport_options)%>
+<p> Number of Passengers:</p>
+<%= f.select(:passengers, [['1',1],['2',2],['3',3],['4',4]])%>
 <p> Flight Dates:</p>
-<%= f.select(:start_time, @flight_options)%>
+<%= f.select(:flight_id, @flight_options)%>
 <%= f.submit 'Search'%>
 <%end%>
+<br/>
 
-<%@matching_flights.each do |match|%>
-<p><%=flight.start_time%></p>
+<%=form_with url: new_flight_path, method: :get do |f|%>
+    <%if @matching_flights.exists? %>
+        <%= f.collection_radio_buttons :flight_date, @matching_flights.order(:start_time),:id,:start_time%>  <br/>     
+        <%=f.submit 'Pick Flight'%>
+    <%end%>
 <%end%>
