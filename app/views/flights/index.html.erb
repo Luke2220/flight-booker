@@ -13,9 +13,10 @@
 <%end%>
 <br/>
 
-<%=form_with url: new_flight_path, method: :get do |f|%>
+<%=form_with url: new_booking_path, method: :get do |f|%>
     <%if @matching_flights.exists? %>
-        <%= f.collection_radio_buttons :flight_date, @matching_flights.order(:start_time),:id,:start_time%>  <br/>     
+        <%= f.collection_radio_buttons :flight_id, @matching_flights.order(:start_time),:id,:start_time%>  <br/>     
+        <%= f.hidden_field :num_passengers, value: params[:passengers]%>
         <%=f.submit 'Pick Flight'%>
     <%end%>
 <%end%>
