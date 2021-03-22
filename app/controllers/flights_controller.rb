@@ -3,6 +3,8 @@ class FlightsController < ApplicationController
         @airport_options = Airport.all.map {|port| [port.airport_code, port.id]}
         @flight_options = Flight.all.map {|flight| [flight.start_time, flight.id]}
         @matching_flights = Flight.where('id = ?', params[:flight_id])
+
+       
     end
 
     def new

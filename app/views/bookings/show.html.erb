@@ -1,0 +1,14 @@
+<%@booking = Booking.find(params[:id])%>
+<h1>Flight information:</h1>
+<p>Departure Time: <%=@booking.flight.start_time%></p>
+<p>Departing airport: </p>
+<p>Arrival airport: </p>
+
+<%@booking.passengers.each_with_index do |passenger,index|%>
+    <p>Passenger <%=index.to_s%> Information:</p>
+    <p>Name: <%=passenger.name%>
+    <p>Email: <%=passenger.email%>
+<%end%>
+
+<p>Booking Number is <%=@booking.id.to_s%></p>
+<%=link_to 'Return to Flight search', flights_path%>

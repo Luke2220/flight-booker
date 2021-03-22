@@ -20,3 +20,9 @@
         <%=f.submit 'Pick Flight'%>
     <%end%>
 <%end%>
+
+<p>Find Booking:</p>
+<%= form_with url: booking_path(1) do|f|%>
+    <%=f.text_field :booking_id%>
+    <%=f.submit 'Find'%>
+<%end%>

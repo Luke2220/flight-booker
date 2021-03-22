@@ -1,7 +1,18 @@
-<p><%=@booking.flight.start_time%></p>
+<p>Departure Time: <%=@booking.flight.start_time%></p>
+<p>Departing airport: </p>
+<p>Arrival airport: </p>
 
-<%form_with model: @booking do |book|%>
-
-   
-
+<%=form_with model: @booking  do |book|%>
+   <%@booking.passengers.each_with_index do |passenger,index|%>
+   <p>Enter details for passenger <%=(index+1).to_s%>:</p>
+    <%=book.fields_for passenger, index: passenger.id do |passenger_form|%>
+        <%= passenger_form.label 'Enter Name:'%>
+        <%=passenger_form.text_field :name%>
+        <%= passenger_form.label 'Enter Email:'%>
+        <%=passenger_form.text_field :email%>      
+    <%end %>
+    <br/>
+<%end%>
+ <%=book.hidden_field :flight_id, value: @booking.flight.id%>
+    <%=book.submit 'Confirm'%>
 <%end%>
