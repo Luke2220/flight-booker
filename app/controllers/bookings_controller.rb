@@ -15,8 +15,8 @@ class BookingsController < ApplicationController
         @booking = Booking.new
      @booking.flight = Flight.find(params[:booking][:flight_id])
 
-        params[:booking][:passenger].each do |key, val|
-            @booking.passengers.build(name: key, email: val)
+        params[:booking][:passenger].each do |key,val|
+            @booking.passengers.build(name: key[:name], email: key[:email])
         end
 
         if @booking.save!      
@@ -27,10 +27,14 @@ class BookingsController < ApplicationController
 
     end
 
+    def show
+  
+    end
+
     private
 
     def booking_params
-        params.require(:booking).permit(:flight_id,:num_passengers, :booking => [:passengers => [:name,:email]])
+        params.require(:booking).permit(:booking_id,:flight_id,:num_passengers, :booking => [:passengers => [:name][:email]])
     end
 
 end

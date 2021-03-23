@@ -1,11 +1,11 @@
 <%@booking = Booking.find(params[:id])%>
 <h1>Flight information:</h1>
-<p>Departure Time: <%=@booking.flight.start_time%></p>
-<p>Departing airport: </p>
-<p>Arrival airport: </p>
+<p>Departure Time: <%=@booking.flight.flight_date%></p>
+<p>Departing airport: <%=@booking.flight.origin_port%></p>
+<p>Arrival airport: <%=@booking.flight.arrival_port%></p>
 
 <%@booking.passengers.each_with_index do |passenger,index|%>
-    <p>Passenger <%=index.to_s%> Information:</p>
+    <p>Passenger <%=(index+1).to_s%> Information:</p>
     <p>Name: <%=passenger.name%>
     <p>Email: <%=passenger.email%>
 <%end%>

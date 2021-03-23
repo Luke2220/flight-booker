@@ -6,23 +6,28 @@
 <p> Arrival airport:</p>
 <%= f.select(:in_airport_id, @airport_options)%>
 <p> Number of Passengers:</p>
-<%= f.select(:passengers, [['1',1],['2',2],['3',3],['4',4]])%>
-<p> Flight Dates:</p>
-<%= f.select(:flight_id, @flight_options)%>
+<%= f.select(:passengers, [['1',1],['2',2],['3',3],['4',4]])%><br/>
 <%= f.submit 'Search'%>
 <%end%>
 <br/>
 
 <%=form_with url: new_booking_path, method: :get do |f|%>
-    <%if @matching_flights.exists? %>
-        <%= f.collection_radio_buttons :flight_id, @matching_flights.order(:start_time),:id,:start_time%>  <br/>     
+    <%if @flights.nil? == false && @flights.empty? == false %>
+        <%= f.collection_radio_buttons :flight_id, @flights.order(:flight_date),:id,:flight_date%>  <br/>     
         <%= f.hidden_field :num_passengers, value: params[:passengers]%>
         <%=f.submit 'Pick Flight'%>
     <%end%>
 <%end%>
 
 <p>Find Booking:</p>
-<%= form_with url: booking_path(1) do|f|%>
+<%= form_with url: flights_path, method: :get do|f|%>
     <%=f.text_field :booking_id%>
     <%=f.submit 'Find'%>
+<%end%>
+<%if Booking.where('id = ?', params[:booking_id]).any?%>
+<p>Found booking</p>
+<%@booking =Booking.find(params[:booking_id])%>
+    <%= link_to 'Go to Booking page', booking_path(@booking.id)%>
+    <%elsif params[:booking_id] != nil%>
+    <p>No booking found</p>
 <%end%>

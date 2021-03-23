@@ -1,6 +1,6 @@
-<p>Departure Time: <%=@booking.flight.start_time%></p>
-<p>Departing airport: </p>
-<p>Arrival airport: </p>
+<p>Departure Time: <%=@booking.flight.flight_date%></p>
+<p>Departing airport: <%=@booking.flight.origin_port%></p>
+<p>Arrival airport: <%=@booking.flight.arrival_port%></p>
 
 <%=form_with model: @booking  do |book|%>
    <%@booking.passengers.each_with_index do |passenger,index|%>
