@@ -19,7 +19,10 @@ class BookingsController < ApplicationController
             @booking.passengers.build(name: key[:name], email: key[:email])
         end
 
-        if @booking.save!      
+        if @booking.save!   
+            @booking.passengers.each do |person|
+                PassengerMailer.with(name: person.name,email: person.email).booked_email.deliver_later
+            end
             redirect_to booking_path(@booking.id)
         else
             render new_bookings_path
